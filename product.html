@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RedStore - products</title>
+    <link rel="stylesheet" href="style.css"> <!--to connect the html file with css file-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  <!--link el icons (stars & quote)-->
+</head>
+<body>
+<!--Header section-->
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="images/logo.png" alt="" width="125px"> 
+                </div>
+                <nav> <!--nav tag defines a set of navigation links.-->
+                    <ul id="MenuItems"> <!--unordered list-->
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="product.html">Products</a></li>
+                        <li><a href="About.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a> <!--Add picture of cart in the nav bar-->
+                <img src="images/menu.png" class="menu-icon" onclick="menutoggle()"> <!--adding menu icon to the header , with finctionnamed menutoggle onclick-->
+            </div>
+        </div>
+
+<div class="small-container">
+    <div class="row row-2" >
+        <h2>All Products</h2>
+    </div>
+    <div id="new" class="row"></div>
+</div>
+</div>
+</div>
+
+<!-- ------------------ footer ----------------  -->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download our App</h3>
+                <p>Download App for Android ands ios mobile phone.</p>
+                <div class="app-logo">
+                    <a href="https://play.google.com/store/games?utm_source=emea_Med&utm_medium=hasem&utm_content=Sep2020&utm_campaign=Evergreen&pcampaignid=MKT-EDR-emea-eg-1001280-Med-hasem-py-Evergreen-Sep2020-Text_Search_BKWS%7CONSEM_kwid_43700009235293910&gclid=Cj0KCQjwhLKUBhDiARIsAMaTLnE-BiuksFkBwXXUFOyNgWREar5UAmCzefCGfmBJFzcYcT4oTzw1S0YaAuBZEALw_wcB&gclsrc=aw.ds"> <img src="images/play-store.png"></a>
+                   <a href="https://www.apple.com/eg/app-store/"><img src="images/app-store.png"></a>
+                    
+                </div> 
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png">
+                <p>Our Purpose Is To Sustainably Make th Pleasure and Benefits of Sports Accessible to the Many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li><a href="https://egypt.alcoupon.com/en/discount-codes/amazon-egypt-souq"  style="color: #8a8a8a;">Coupons</a>  </li>
+                    <li><a href="https://aws.amazon.com/blogs/"  style="color: #8a8a8a;">Blog Post</a></li>
+                    <li><a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GKM69DUUYKQWKWX7"  style="color: #8a8a8a;">Return Policy</a></li>
+                    <li><a href="https://selfedev.com/noon-affiliate/"  style="color: #8a8a8a;">Affiliate</a>Join </li>
+                </ul>
+            </div>  
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>                  
+                    <li><a href="https://www.facebook.com/"  style="color: #8a8a8a;">Facebook</a>  </li>
+                    <li><a href="https://twitter.com/home" style="color: #8a8a8a;">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/" style="color: #8a8a8a;">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/" style="color: #8a8a8a;">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr> 
+        <p class="copyright"> Copytight 2022 - Our Team</p>
+    </div>
+</div>
+
+<!-- ------------ js for toggle menu -----------  -->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle() { /* function to open the menu onclick*/
+        if (MenuItems.style.maxHeight == "0px") { /*0px = the menu is closed*/
+            MenuItems.style.maxHeight = "200px";
+        } else {
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+    import { getDatabase , ref, child, get, set } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLGGGQ_ovuBh_0oTR6wUAYsXJ0j64bYe8",
+      authDomain: "ecommerce-90bdf.firebaseapp.com",
+      databaseURL: "https://ecommerce-90bdf-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "ecommerce-90bdf",
+      storageBucket: "ecommerce-90bdf.appspot.com",
+      messagingSenderId: "403172269237",
+      appId: "1:403172269237:web:467e35e7c5e6db88c9f2fc",
+      measurementId: "G-0HFDKNVJPG"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const dbRef = ref(db);
+
+    get(child(dbRef, `prodacts`)).then((snapshot) => {
+    if (snapshot.exists()) {
+        console.log(snapshot.val());
+
+        showProducts(snapshot.val())
+
+    } else {
+        console.log("No data available");
+    }
+    }).catch((error) => {
+    console.error(error);
+    });
+
+
+    function showProducts(pro){
+            let ProductId;
+            let ProductNameID
+            let ProductPriceID
+            let ProductPhotoID
+            let ProductLinkID
+            let ProductRateID
+            let Products=pro
+
+            //convert Object to array
+            let entries = Object.entries(Products);
+
+            console.log("Products array: ")
+            console.log(entries);
+            console.log("Products Object: ")
+            console.log(Products);
+
+            console.log(Object.keys(Products).length)
+
+            for (let i = 0; i < Object.keys(Products).length; i++) {
+                // Generate IDs
+                ProductId = "product" + i;
+                ProductNameID =ProductId +"name"
+                ProductPriceID = ProductId +"price"
+                ProductPhotoID = ProductId +"photo"
+                ProductLinkID = ProductId +"link"
+                ProductRateID = ProductId +"rate"
+
+                console.log(ProductId)
+
+                //create Div that Contains html Elements for Products
+                let newDiv = document.createElement('div'); 
+                newDiv.setAttribute("id", ProductId);
+                newDiv.setAttribute("class", "col-4");
+                let products = document.getElementById("new");
+                products.appendChild(newDiv);
+
+                //create html Elements
+                let photo = document.createElement('img');
+                photo.setAttribute("id", ProductPhotoID); 
+                let link = document.createElement('a');
+                link.setAttribute("id", ProductLinkID);
+                let name = document.createElement('h4'); 
+                name.setAttribute("id", ProductNameID);
+                let price = document.createElement('p');
+                price.setAttribute("id", ProductPriceID); 
+                let rateDiv = document.createElement('div');
+                rateDiv.setAttribute("id", ProductRateID);
+                rateDiv.setAttribute("class", "rating");
+
+                //put Elements in html inside Div that we create
+                let newProduct = document.getElementById(ProductId);
+                newProduct.appendChild(photo);
+                newProduct.appendChild(link);
+                newProduct.appendChild(name);
+                newProduct.appendChild(rateDiv);
+                newProduct.appendChild(price);
+
+                //give values to Elements that we create
+                document.getElementById(ProductPhotoID).src=entries[i][1].img;
+                document.getElementById(ProductLinkID).href=entries[i][1].link;
+                document.getElementById(ProductLinkID).innerText="product details";
+                document.getElementById(ProductNameID).innerHTML=entries[i][1].name;
+                document.getElementById(ProductPriceID).innerHTML="$"+entries[i][1].price;
+
+                //put stars
+                let rating = document.getElementById(ProductRateID);
+                let rate=entries[i][1].rate;
+                let Fraction=rate-parseInt(rate);
+                for (let j = 0; j < parseInt(rate); j++) {
+                    let star = document.createElement('i');
+                    star.setAttribute("class", "fa fa-star");
+                    rating.appendChild(star);
+                }
+                if (Fraction >= 0.25 && Fraction < 0.75){
+                    let star = document.createElement('i');
+                    star.setAttribute("class", "fa fa-star-half-o");
+                    rating.appendChild(star);
+                }else if (Fraction >= 0.75){
+                    let star = document.createElement('i');
+                    star.setAttribute("class", "fa fa-star");
+                    rating.appendChild(star);
+                }
+
+            }
+        
+        }
+
+</script>
+<button onclick="myFunction()">Toggle dark mode</button>
+
+<script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+</script>
+
+</body>
+</html>

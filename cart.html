@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedStore - Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" width="125px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="About.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+            <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+            <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+
+        </div>
+    </div>
+
+    <!-- ------------- cart items details ----------------  -->
+
+    <div class="small-container cart-page">
+        <table id="new">
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </table>
+
+        <div class="total-price">
+            <table>
+                <tr>
+                    <td>Subtotal</td>
+                    <td id="subtotal"></td>
+                </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td id="tax"></td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td id="total"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+<!-- ------------------ footer ----------------  -->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download our App</h3>
+                <p>Download App for Android ands ios mobile phone.</p>
+                <div class="app-logo">
+                    <a href="https://play.google.com/store/games?utm_source=emea_Med&utm_medium=hasem&utm_content=Sep2020&utm_campaign=Evergreen&pcampaignid=MKT-EDR-emea-eg-1001280-Med-hasem-py-Evergreen-Sep2020-Text_Search_BKWS%7CONSEM_kwid_43700009235293910&gclid=Cj0KCQjwhLKUBhDiARIsAMaTLnE-BiuksFkBwXXUFOyNgWREar5UAmCzefCGfmBJFzcYcT4oTzw1S0YaAuBZEALw_wcB&gclsrc=aw.ds"> <img src="images/play-store.png"></a>
+                   <a href="https://www.apple.com/eg/app-store/"><img src="images/app-store.png"></a>
+                    
+                </div> 
+            </div>
+            <div class="footer-col-2">
+                <img src="images/logo-white.png">
+                <p>Our Purpose Is To Sustainably Make th Pleasure and Benefits of Sports Accessible to the Many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li><a href="https://egypt.alcoupon.com/en/discount-codes/amazon-egypt-souq"  style="color: #8a8a8a;">Coupons</a>  </li>
+                    <li><a href="https://aws.amazon.com/blogs/"  style="color: #8a8a8a;">Blog Post</a></li>
+                    <li><a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GKM69DUUYKQWKWX7"  style="color: #8a8a8a;">Return Policy</a></li>
+                    <li><a href="https://selfedev.com/noon-affiliate/"  style="color: #8a8a8a;">Affiliate</a>Join </li>
+                </ul>
+            </div>  
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>                  
+                    <li><a href="https://www.facebook.com/"  style="color: #8a8a8a;">Facebook</a>  </li>
+                    <li><a href="https://twitter.com/home" style="color: #8a8a8a;">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/" style="color: #8a8a8a;">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/" style="color: #8a8a8a;">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr> 
+        <p class="copyright"> Copytight 2022 - Our Team</p>
+    </div>
+</div>
+
+    <!-- ------------ js for toggle menu -----------  -->
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px";
+            } else {
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+    </script>
+
+
+<script type="module">
+
+    let cartLength = 0;
+
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+    import { getDatabase , ref, child, get, set,update,remove } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDLGGGQ_ovuBh_0oTR6wUAYsXJ0j64bYe8",
+      authDomain: "ecommerce-90bdf.firebaseapp.com",
+      databaseURL: "https://ecommerce-90bdf-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "ecommerce-90bdf",
+      storageBucket: "ecommerce-90bdf.appspot.com",
+      messagingSenderId: "403172269237",
+      appId: "1:403172269237:web:467e35e7c5e6db88c9f2fc",
+      measurementId: "G-0HFDKNVJPG"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const dbRef = ref(db);
+
+    get(child(dbRef, `UsersCart/user1`)).then((snapshot) => {
+    if (snapshot.exists()) {
+        // console.log(snapshot.val());
+
+        showProducts(snapshot.val())
+
+    } else {
+        console.log("No data available");
+    }
+    }).catch((error) => {
+    console.error(error);
+    });
+
+    function showProducts(pro){
+        //convert Object to array
+        let user=Object.entries(pro);
+        cartLength=user.length;
+
+        for (let i = 0; i < user.length; i++) {
+            //[0] store Product id
+            //[1] store Product Quantity
+            user[i][0]=parseInt(user[i][0].replace("p",''))-1
+        }
+        console.log("card array: ")
+        console.log(user)
+
+        get(child(dbRef, `prodacts`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                // console.log(snapshot.val());
+
+                showProducts2(snapshot.val(),user);
+                setRemoveButton();
+
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+
+
+    }
+
+    function showProducts2(pro,arr){
+            let ProductId;
+            let ProductNameID
+            let ProductPriceID
+            let ProductPhotoID
+            let ProductdivdivID
+            let ProductbuttonID
+            let ProductTdID1
+            let ProductTdID2
+            let ProductTdID3
+            let ProductinputID 
+            let Productdivdiv2ID
+            let Products=pro
+            let Subtotal = 0
+            let tax = 0
+            let total = 0
+
+            //convert Object to array
+            let entries = Object.entries(Products);
+            console.log("Products array: ")
+            console.log(entries);
+            console.log("Products Object: ")
+            console.log(Products);
+            console.log(Object.keys(Products).length)
+
+            // Generate IDs
+            for (let i = 0; i < arr.length; i++) {
+                ProductId = "product" + i;
+                ProductNameID =ProductId +"name"
+                ProductPriceID = ProductId +"price"
+                ProductPhotoID = ProductId +"photo"
+                ProductdivdivID = ProductId+ "divdiv"
+                Productdivdiv2ID = ProductId+ "divdiv2"
+                ProductbuttonID = ProductId+"button"
+                ProductTdID1 = ProductId + "td1"
+                ProductTdID2 = ProductId + "td2"
+                ProductTdID3 = ProductId + "td3"
+                ProductinputID = ProductId + "input"
+
+                console.log(ProductId)
+
+                //create table row that Contains html Elements for Product
+                let newTr = document.createElement('tr'); 
+                newTr.setAttribute("id", ProductId);
+                let products = document.getElementById("new");
+                products.appendChild(newTr);
+
+                //create 3 colomns and others html Elements
+                let newTd1 = document.createElement('td'); 
+                newTd1.setAttribute("id", ProductTdID1);
+
+                let newTd2 = document.createElement('td'); 
+                newTd2.setAttribute("id", ProductTdID2);
+
+                let newTd3 = document.createElement('td'); 
+                newTd3.setAttribute("id", ProductTdID3);
+
+                let divdiv2 = document.createElement('div'); 
+                divdiv2.setAttribute("id", Productdivdiv2ID );
+
+                let photo = document.createElement('img');
+                photo.setAttribute("id", ProductPhotoID); 
+                let divdiv = document.createElement('div'); 
+                divdiv.setAttribute("id", ProductdivdivID );
+                divdiv.setAttribute("class", "cart-info");
+                let name = document.createElement('p'); 
+                name.setAttribute("id", ProductNameID);
+                let price = document.createElement('small');
+                price.setAttribute("id", ProductPriceID); 
+                let button = document.createElement('button');
+                button.setAttribute("id", ProductbuttonID);
+                button.setAttribute("value", arr[i][0]);
+
+                let input = document.createElement('input');
+                input.setAttribute("id", ProductinputID); 
+                input.setAttribute("type", "number");
+                input.setAttribute('value', arr[i][1].Quantity); //Quantity of Product
+
+
+
+
+                //put Elements in there place
+                let newProduct = document.getElementById(ProductId);
+                newProduct.appendChild(newTd1);
+                newProduct.appendChild(newTd2);
+                newProduct.appendChild(newTd3);
+  
+                let newProduct2 = document.getElementById(ProductTdID1);
+                newProduct2.appendChild(divdiv);
+
+                let newProduct3 = document.getElementById(ProductdivdivID);
+                newProduct3.appendChild(photo);
+                newProduct3.appendChild(divdiv2);
+
+                let newProduct4 = document.getElementById(Productdivdiv2ID);
+                newProduct4.appendChild(name);
+                newProduct4.appendChild(price);
+                newProduct4.appendChild(document.createElement('br'));
+                newProduct4.appendChild(button);
+
+                let newProduct5 = document.getElementById(ProductTdID2);
+                newProduct5.appendChild(input);
+
+                //give value for Elements
+                document.getElementById(ProductPhotoID).src=entries[arr[i][0]][1].img;
+                document.getElementById(ProductNameID).innerHTML=entries[arr[i][0]][1].name;
+                document.getElementById(ProductPriceID).innerHTML="$"+entries[arr[i][0]][1].price.toFixed(2);
+                document.getElementById(ProductbuttonID).innerHTML="remove";
+                document.getElementById(ProductTdID3).innerHTML="$"+(entries[arr[i][0]][1].price * arr[i][1].Quantity).toFixed(2);
+
+                Subtotal+= entries[arr[i][0]][1].price * arr[i][1].Quantity
+
+            }
+            
+            // console.log(Subtotal)
+
+            tax = (Subtotal*0.14)
+            total=tax+Subtotal
+
+            document.getElementById("subtotal").innerHTML="$"+Subtotal.toFixed(2);
+            document.getElementById("tax").innerHTML="$"+tax.toFixed(2);
+            document.getElementById("total").innerHTML="$"+total.toFixed(2);
+
+        }
+
+        //Remove Product from cart
+        function setRemoveButton(){
+        for (let i = 0; i < cartLength; i++) {
+            
+            document.getElementById("product"+i+"button").addEventListener('click',function deleteProduct(buttonID){
+
+                let productID=parseInt(document.getElementById("product"+i+"button").value)+1
+
+                if (productID<10){
+                    productID="p0"+productID
+                }else{productID="p"+productID}
+
+                remove(ref(db,"/UsersCart/user1/"+productID));
+                window.location.reload();
+            
+            });
+        }}
+
+        //update cart every 2 second
+        setInterval(function() {
+            let Subtotal=0
+            
+            for (let i = 0; i < cartLength; i++) {
+                let price=parseInt(document.getElementById("product" + i+"price").innerHTML.replace("$",''))
+                let Quantity=parseInt(document.getElementById("product" + i+"input").value.replace("$",''))
+                if(Quantity>=0){
+                    let productID=parseInt(document.getElementById("product" + i+"button").value)+1
+                    if (productID<10){
+                        productID="p0"+productID
+                    }else{productID="p"+productID}
+                    update(ref(db,"/UsersCart/user1/"+productID),{
+                        Quantity:Quantity}
+                    );
+                document.getElementById("product" + i+"td3").innerHTML="$" + (price * Quantity).toFixed(2);;
+                Subtotal+=price * Quantity}else{document.getElementById("product" + i+"td3").innerHTML="$0.00"}
+
+            }
+            let tax = (Subtotal*0.14)
+            let total=tax+Subtotal
+
+            document.getElementById("subtotal").innerHTML="$"+Subtotal.toFixed(2);
+            document.getElementById("tax").innerHTML="$"+tax.toFixed(2);
+            document.getElementById("total").innerHTML="$"+total.toFixed(2);
+
+        }, 2000)
+
+</script>
+
+
+
+</body>
+
+</html>
